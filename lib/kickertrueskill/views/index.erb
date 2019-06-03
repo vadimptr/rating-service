@@ -1,0 +1,84 @@
+<head>
+<style>
+div {
+    background-color: lightblue;
+}
+.header_div {
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+  color: black;
+}
+.info_div {
+  text-align: center;
+  color: black;
+}
+.header_text {
+  font-size: xx-large;
+ }
+.info_text {
+  font-size: large;
+ }
+</style>
+</head>
+<body>
+
+  <div class="header_div">
+    <span class="header_text">
+		  <%= title_ratings %><br/>
+    </span>
+  </div>
+  <div class="info_div">
+    <span class="info_text">
+      <table class="table table-hover">
+        <tr>
+          <th>League</th>
+          <th>Player</th>
+          <th>Rating</th>
+          <th>Games</th>
+          <th>Deviation</th>
+        </tr>
+        <% table_rating.each do |row| %>
+        <tr>
+          <td><%= row[:league] %><td>
+          <td><%= row[:player] %></td>
+          <td><%= row[:rating] %></td>
+          <td><%= row[:games] %></td>
+          <td><%= row[:deviation] %></td>
+        </tr>
+        <% end %>
+      </table>
+    </span>
+  </div>
+
+  <div class="header_div">
+    <span class="header_text">
+		  <%= title %><br/>
+    </span>
+  </div>
+  <div class="info_div">
+    <span class="info_text">
+      <table class="table table-hover">
+        <tr>
+          <th>Player1</th>
+          <th>Player2</th>
+          <th>Score1</th>
+          <th>Score2</th>
+          <th>Player3</th>
+          <th>Player4</th>
+        </tr>
+        <% games.each do |game| %>
+        <tr>
+          <td><%= game.player1 %><td>
+          <td><%= game.player2 %></td>
+          <td><%= game.score1 %></td>
+          <td><%= game.score2 %></td>
+          <td><%= game.player3 %></td>
+          <td><%= game.player4 %></td>
+        </tr>
+        <% end %>
+      </table>
+    </span>
+  </div>
+
+</body>
