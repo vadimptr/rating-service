@@ -5,6 +5,7 @@ module SlackRoutes
       if params["payload"]
         payload = JSON.parse(params["payload"])
         channel = payload["channel"]["id"]
+        user_id = payload["user"]["id"]
         submission = payload["submission"]
 
         puts JSON.pretty_generate submission
@@ -73,7 +74,7 @@ module SlackRoutes
           end
         end
 
-        user = user_list[params["user_id"]]
+        user = user_list[user_id]
 
         # публикуем сообщение с таблицей
         body = SlackApi.post_message(channel, "```User: \n#{table}```")
