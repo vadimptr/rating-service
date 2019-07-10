@@ -1,8 +1,6 @@
 require "sinatra/base"
 
 class WebApplication < Sinatra::Base
-  register HelperRoutes
-  register GamesAdd
   register ViewsRoutes
   register SlackRoutes
 
@@ -13,6 +11,7 @@ class WebApplication < Sinatra::Base
 
   error do
     e = request.env["sinatra.error"]
+    puts e
     response = {}
     response["status"] = "fail"
     response["exception"] = e.exception

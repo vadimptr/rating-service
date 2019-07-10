@@ -5,7 +5,7 @@ module ViewsRoutes
         title: "Games",
         games: ::Game.all.all.sort_by {|a| a.id},
         title_ratings: "Rating",
-        table_rating: ::ProcessRating.new.call
+        table_rating: []
       }
     end
   end

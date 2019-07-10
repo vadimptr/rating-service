@@ -22,6 +22,7 @@ gem "sequel"
 gem "sinatra"
 gem "watir"
 gem 'unicode-display_width', '~> 1.0'
+gem "kmeans-clusterer"
 
 group :test do
   gem "rack-test"

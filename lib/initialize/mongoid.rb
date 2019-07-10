@@ -1,6 +1,3 @@
-
-ENV["MONGODB_URI"] ||= "mongodb://heroku_m80znbsg:3oms87rot8pqjq814g3r5il1g7@ds245715.mlab.com:45715/heroku_m80znbsg"
-
 uri = Mongo::URI.new(ENV["MONGODB_URI"])
 configuration = {
   clients: {
