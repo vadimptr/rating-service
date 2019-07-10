@@ -74,6 +74,7 @@ module SlackRoutes
           end
         end
 
+        puts "USER: #{user_id}"
         user = user_list[user_id]
 
         # публикуем сообщение с таблицей
