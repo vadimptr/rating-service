@@ -31,7 +31,12 @@ class ProcessRating
       players[p3] = team2[0] if p3
       players[p4] = team2[1] if p4
 
-      yield(players[p1], players[p2], players[p3], players[p4]) if block_given?
+      yield({
+        p1 => players[p1], 
+        p2 => players[p2], 
+        p3 => players[p3], 
+        p4 => players[p4]
+      }) if block_given?
     end
     [players, counts]
   end

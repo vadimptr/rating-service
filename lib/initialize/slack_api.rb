@@ -1,3 +1,7 @@
+Slack.configure do |config|
+  config.token = ENV['SLACK_TOKEN']
+end
+
 class SlackApi
   class_attribute :users
 
@@ -108,6 +112,19 @@ class SlackApi
         @users[u["id"]] = u["profile"]["real_name"].downcase.sub(" ", "_")
       end
       @users
+    rescue => ex
+      puts ex.message
+      raise ex
+    end
+
+    def upload_file(channel, title, file_path)
+      body = {
+        file: Faraday::UploadIO.new(file_path, "image/png"),
+        token: ENV["SLACK_TOKEN"],
+        channels: channel,
+        filename: "plot.png"
+      }
+      make_request(:post, "files.upload", body.to_json)
     rescue => ex
       puts ex.message
       raise ex

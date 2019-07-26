@@ -106,5 +106,47 @@ module SlackRoutes
       puts ex.backtrace
       [500, ex.message]
     end
+
+    app.post("/plot") do
+      puts JSON.pretty_generate params
+
+      user_id = params["user_id"]
+      channel_id = params["channel_id"]
+
+      user_list = SlackApi.user_list
+      user = user_list[user_id]
+
+      history = []
+      ProcessRating.new.call do |players_hash|
+        exist = players_hash[user]
+        if exist
+          history << exist.mean
+        end
+      end
+
+      graph = GraphPrint.new.call(user, history)
+      file_name = "file_#{graph.object_id}.png"
+      File.write(file_name, graph.to_blob)
+
+      client = Slack::Web::Client.new
+      client.files_upload(
+        channels: channel_id,
+        as_user: true,
+        file: Faraday::UploadIO.new(file_name, 'image/png'),
+        title: "Rating graph",
+        filename: file_name,
+        token: ENV["SLACK_TOKEN"]
+      )
+      
+      File.delete(file_name) if file_name && File.exist?(file_name)
+
+      [200, ""]
+    rescue => ex
+      File.delete(file_name) if file_name && File.exist?(file_name)
+
+      puts ex.message
+      puts ex.backtrace
+      [500, ex.message]
+    end
   end
 end

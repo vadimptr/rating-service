@@ -23,6 +23,9 @@ gem "sinatra"
 gem "watir"
 gem 'unicode-display_width', '~> 1.0'
 gem "kmeans-clusterer"
+gem 'rmagick'
+gem 'gruff'
+gem 'slack-ruby-client'
 
 group :test do
   gem "rack-test"
