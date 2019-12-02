@@ -11,13 +11,15 @@ class PrintRating
     rows = []
     kmeans.clusters.each do |cluster|
       cluster.points.each do |p|
-        rows << [
-          cluster.id,
-          p.label, 
-          ps[p.label].mean,
-          counts[p.label], 
-          ps[p.label].deviation
-        ]
+        if ps[p.label].deviation < 2
+          rows << [
+            cluster.id,
+            p.label, 
+            ps[p.label].mean,
+            counts[p.label], 
+            ps[p.label].deviation
+          ]
+        end
       end
     end
 
