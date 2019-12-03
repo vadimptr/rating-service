@@ -1,4 +1,3 @@
-
 class PrintRating
   def call(ps, counts)
     # рисуем таблицу
@@ -22,6 +21,8 @@ class PrintRating
         end
       end
     end
+
+    return "Еще никто не дошел до минимального Deviation" if rows.empty?
 
     rows.sort_by! { |r| -r[2] }
 
