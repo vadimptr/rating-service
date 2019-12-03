@@ -1,16 +1,17 @@
 class PrintRating
-  
   MAX_DEVIATION = 2
-  
+
   def call(ps, counts)
     # рисуем таблицу
     sorted = ps.sort_by { |_, v| -v.mean }
-    
-    #скрываем всех игроков с Deviation > 2
+
+    # скрываем всех игроков с Deviation > 2
     sorted.delete_if { |_, v| v.deviation > MAX_DEVIATION }
+    return 'Еще никто не дошел до минимального Deviation' if sorted.empty?
 
     labels = sorted.map { |k, _| k }
     data = sorted.map { |_, v| [v.mean, v.mean] }
+
     kmeans = KMeansClusterer.run(6, data, labels: labels, runs: 10)
 
     rows = []
@@ -25,8 +26,6 @@ class PrintRating
         ]
       end
     end
-
-    return "Еще никто не дошел до минимального Deviation" if rows.empty?
 
     rows.sort_by! { |r| -r[2] }
 
