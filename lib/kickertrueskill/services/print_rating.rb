@@ -1,8 +1,14 @@
 
 class PrintRating
+
+  MIN_DEVIATION = 2
+
   def call(ps, counts)
     # рисуем таблицу
     sorted = ps.sort_by { |_, v| -v.mean }
+
+    #удаляем всех игроков с Deviation < 2
+    sorted.delete_if { |_, v| v.deviation > MIN_DEVIATION }
 
     labels = sorted.map { |k, _| k }
     data = sorted.map { |_, v| [v.mean, v.mean] }
@@ -11,15 +17,13 @@ class PrintRating
     rows = []
     kmeans.clusters.each do |cluster|
       cluster.points.each do |p|
-        if ps[p.label].deviation < 2
-          rows << [
-            cluster.id,
-            p.label, 
-            ps[p.label].mean,
-            counts[p.label], 
-            ps[p.label].deviation
-          ]
-        end
+        rows << [
+          cluster.id,
+          p.label,
+          ps[p.label].mean,
+          counts[p.label],
+          ps[p.label].deviation
+        ]
       end
     end
 
@@ -29,7 +33,7 @@ class PrintRating
       cur = rows[0][0]
       rows.each do |row|
         if cur != row[0]
-          t.add_separator 
+          t.add_separator
           cur = row[0]
         end
         row[2] = "%+0.3f" % row[2]
