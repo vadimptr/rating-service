@@ -19,7 +19,7 @@ module SlackRoutes
         teamScores = submission["teamScores"]
 
         return if player1.nil? || player2.nil? || player3.nil? || player4.nil? || teamScores.nil?
-       
+
         diffs = {
           player1 => [],
           player2 => [],
@@ -34,7 +34,7 @@ module SlackRoutes
         diffs[player3] << "%+0.3f" % (players[player3]&.mean || 0)
         diffs[player4] << "%+0.3f" % (players[player4]&.mean || 0)
 
-        headings = ["Player", "Score before"]
+        headings = ["Player", "Deviation", "Score before"]
         groups = teamScores.scan(/([0-8]:[0-8])+/).flatten
         groups.each do |group|
           scores = group.scan(/([0-8]):([0-8])/).flatten
@@ -65,6 +65,12 @@ module SlackRoutes
 
         puts "Games added."
 
+        #Current Deviation to the second position in view table
+        diffs[player1].insert(1, "%+0.3f" % (players[player1]&.deviation || 0))
+        diffs[player1].insert(1, "%+0.3f" % (players[player1]&.deviation || 0))
+        diffs[player1].insert(1, "%+0.3f" % (players[player1]&.deviation || 0))
+        diffs[player1].insert(1, "%+0.3f" % (players[player1]&.deviation || 0))
+
         # print table
         # table_raw = PrintRating.new.call(players, counts)
 
@@ -80,7 +86,7 @@ module SlackRoutes
         body = SlackApi.post_message(channel, "```User: #{user} \n#{table}```")
 
         puts "Message with table posted."
-       
+
         [200, ""]
       else
         # открываем диалог
@@ -137,7 +143,7 @@ module SlackRoutes
         filename: file_name,
         token: ENV["SLACK_TOKEN"]
       )
-      
+
       File.delete(file_name) if file_name && File.exist?(file_name)
 
       [200, ""]
