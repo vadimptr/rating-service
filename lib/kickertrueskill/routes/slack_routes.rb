@@ -55,10 +55,10 @@ module SlackRoutes
           players, counts = ProcessRating.new.call
 
           # rating after
-          diffs[player1] << "%+0.3f" % (players[player1]&.mean || 0)
-          diffs[player2] << "%+0.3f" % (players[player2]&.mean || 0)
-          diffs[player3] << "%+0.3f" % (players[player3]&.mean || 0)
-          diffs[player4] << "%+0.3f" % (players[player4]&.mean || 0)
+          diffs[player1] << "%+0.3f" %  players[player1].mean 
+          diffs[player2] << "%+0.3f" %  players[player2].mean
+          diffs[player3] << "%+0.3f" %  players[player3].mean
+          diffs[player4] << "%+0.3f" %  players[player4].mean
 
           puts "Add game: #{player1} #{player2} #{score1} : #{score2} #{player3} #{player4}"
         end
