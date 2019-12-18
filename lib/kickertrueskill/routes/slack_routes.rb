@@ -34,7 +34,7 @@ module SlackRoutes
         diffs[player3] << "%+0.3f" % (players[player3]&.mean || 0)
         diffs[player4] << "%+0.3f" % (players[player4]&.mean || 0)
 
-        headings = ["Player", "Deviation", "Score before"]
+        headings = ["Player", "Score before"]
         groups = teamScores.scan(/([0-8]:[0-8])+/).flatten
         groups.each do |group|
           scores = group.scan(/([0-8]):([0-8])/).flatten
@@ -66,10 +66,11 @@ module SlackRoutes
         puts "Games added."
         
         #Current Deviation to the second position in view table
-        diffs[player1].unshift("%+0.3f" % (players[player1]&.deviation || 0))
-        diffs[player2].unshift("%+0.3f" % (players[player2]&.deviation || 0))
-        diffs[player3].unshift("%+0.3f" % (players[player3]&.deviation || 0))
-        diffs[player4].unshift("%+0.3f" % (players[player4]&.deviation || 0))
+        headings << "Deviation"
+        diffs[player1] << "%+0.3f" % (players[player1]&.deviation || 0))
+        diffs[player2] << "%+0.3f" % (players[player2]&.deviation || 0))
+        diffs[player3] << "%+0.3f" % (players[player3]&.deviation || 0))
+        diffs[player4] << "%+0.3f" % (players[player4]&.deviation || 0))
 
         # print table
         # table_raw = PrintRating.new.call(players, counts)
