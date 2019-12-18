@@ -65,12 +65,12 @@ module SlackRoutes
 
         puts "Games added."
         
-        #Current Deviation to the second position in view table
+        #Current Deviation to the last position in view table
         headings << "Deviation"
-        diffs[player1] << "%+0.3f" % (players[player1]&.deviation || 0))
-        diffs[player2] << "%+0.3f" % (players[player2]&.deviation || 0))
-        diffs[player3] << "%+0.3f" % (players[player3]&.deviation || 0))
-        diffs[player4] << "%+0.3f" % (players[player4]&.deviation || 0))
+        diffs[player1] << ("%+0.3f" % (players[player1]&.deviation || 0))
+        diffs[player2] << ("%+0.3f" % (players[player2]&.deviation || 0))
+        diffs[player3] << ("%+0.3f" % (players[player3]&.deviation || 0))
+        diffs[player4] << ("%+0.3f" % (players[player4]&.deviation || 0))
 
         # print table
         # table_raw = PrintRating.new.call(players, counts)
