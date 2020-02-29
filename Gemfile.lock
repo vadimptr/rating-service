@@ -54,7 +54,7 @@ GEM
     pry-byebug (3.5.1)
       byebug (~> 9.1)
       pry (~> 0.10)
-    puma (3.12.2)
+    puma (3.12.3)
     rack (2.0.8)
     rack-parser (0.7.0)
       rack
